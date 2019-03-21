@@ -14,7 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $product=Product::all();
+        return view("products.index",["products"=>$product]);
     }
 
     /**
@@ -24,8 +25,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
-        return view('products.create');
+        $products=new Product();
+        return view('products.create',["products"=>$products]);
     }
 
     /**
@@ -36,7 +37,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $products=new Product;
+        $products->title=$request->title;
+        $products->description=$request->description;
+        $products->price=$request->price;
+        if ($products->save()) {
+            return redirect('/products');
+        }else{
+            return view("products.create",["products"=>$products]);
+        }
     }
 
     /**
@@ -56,9 +65,10 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $products=Product::find($id);
+        return view("products.edit",["products"=>$products]);
     }
 
     /**
@@ -68,9 +78,17 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        $products=Product::find($id);
+        $products->title=$request->title;
+        $products->description=$request->description;
+        $products->price=$request->price;
+        if ($products->save()) {
+            return redirect("/products");   
+        }else{
+            return view("products.edit",["products"=>$products]);
+        }
     }
 
     /**
