@@ -1,6 +1,11 @@
-@extends('layouts.app');
+@extends('layouts.app')
 @section('content')
 	<div class="container">
+	<div class="">
+	@yield('content')
+		<products-component></products-component>	
+	</div>
+	
 		<div class="row">
 			@foreach($products as $pro)
 			<div class="col-xs-12 col-sm-6" col-md-4>
@@ -13,6 +18,9 @@
 				</div>
 			</div>
 			@endforeach	
+		</div>
+		<div class="actions">
+			{{$products->links()}}
 		</div>		
 	</div>
 @endsection

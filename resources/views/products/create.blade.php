@@ -5,7 +5,7 @@
 		<header>
 			<h4>Nuevo Producto</h4>
 		</header>
-		<div class="card-body">
+		<div class="card-body" class="app-form">
 			@include('products.form',['products'=>$products,'url'=>'/products','method'=>'POST'])
 		</div>
 	</div>
